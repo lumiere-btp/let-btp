@@ -31,9 +31,240 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* =========================================================
+        GALERIE - IMAGES CLIQUABLES
+      ========================================================= */
+
+      .project-image {
+        cursor: zoom-in;
+        transition:
+          transform 0.35s ease,
+          filter 0.35s ease;
+      }
+
+      .project-image:hover {
+        transform: scale(1.03);
+        filter: brightness(0.88);
+      }
+
+      /* =========================================================
+        LIGHTBOX
+      ========================================================= */
+
+      .image-lightbox {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99999;
+
+        display: none;
+        align-items: center;
+        justify-content: center;
+
+        padding: 30px;
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition:
+          opacity 0.3s ease,
+          visibility 0.3s ease;
+      }
+
+      .image-lightbox.active {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Fond sombre */
+
+      .image-lightbox-overlay {
+        position: absolute;
+        inset: 0;
+
+        background: rgba(3, 15, 30, 0.94);
+
+        backdrop-filter: blur(5px);
+      }
+
+      /* Contenu */
+
+      .image-lightbox-content {
+        position: relative;
+        z-index: 2;
+
+        width: min(1100px, 95vw);
+        max-height: 92vh;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        animation: lightboxZoom 0.3s ease;
+      }
+
+      /* Animation */
+
+      @keyframes lightboxZoom {
+        from {
+          opacity: 0;
+          transform: scale(0.92);
+        }
+
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Image */
+
+      .image-lightbox-image-container {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .image-lightbox-image-container img {
+        display: block;
+
+        max-width: 100%;
+        max-height: 78vh;
+
+        width: auto;
+        height: auto;
+
+        object-fit: contain;
+
+        border-radius: 8px;
+
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      }
+
+      /* Informations */
+
+      .image-lightbox-info {
+        width: 100%;
+
+        margin-top: 15px;
+
+        text-align: center;
+
+        color: #ffffff;
+      }
+
+      .image-lightbox-info strong {
+        display: block;
+
+        font-family: "Montserrat", sans-serif;
+
+        font-size: 20px;
+        font-weight: 700;
+
+        margin-bottom: 5px;
+      }
+
+      .image-lightbox-info span {
+        display: block;
+
+        font-family: "Open Sans", sans-serif;
+
+        font-size: 14px;
+
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      /* Bouton fermeture */
+
+      .image-lightbox-close {
+        position: absolute;
+
+        top: -15px;
+        right: -15px;
+
+        z-index: 5;
+
+        width: 42px;
+        height: 42px;
+
+        border: none;
+        border-radius: 50%;
+
+        background: #ffffff;
+
+        color: #071a33;
+
+        font-size: 30px;
+        line-height: 1;
+
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.35);
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .image-lightbox-close:hover {
+        transform: rotate(90deg) scale(1.05);
+      }
+
+      /* Empêcher le scroll de la page */
+
+      body.lightbox-open {
+        overflow: hidden;
+      }
+
+      /* =========================================================
+        MOBILE
+      ========================================================= */
+
+      @media (max-width: 768px) {
+        .image-lightbox {
+          padding: 15px;
+        }
+
+        .image-lightbox-content {
+          width: 100%;
+        }
+
+        .image-lightbox-image-container img {
+          max-width: 100%;
+          max-height: 72vh;
+        }
+
+        .image-lightbox-close {
+          top: -10px;
+          right: -5px;
+
+          width: 38px;
+          height: 38px;
+
+          font-size: 27px;
+        }
+
+        .image-lightbox-info strong {
+          font-size: 17px;
+        }
+
+        .image-lightbox-info span {
+          font-size: 13px;
+        }
+      }
+    </style>
   </head>
 
-  <body>
+  <body class="px-4">
     <!-- =========================================================
      BARRE SUPÉRIEURE
 ========================================================= -->
@@ -375,51 +606,214 @@
         </div>
 
         <div class="projects-grid">
-          <figure class="project project-large">
+          <!-- Projet 1 -->
+          <figure
+            class="project project-large"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_1.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
             <img
-              src="assets/images/chantier-1.jpg"
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_1.jpeg"
               alt="Projet de construction"
+              class="project-image"
             />
 
             <figcaption>
-              <strong> Construction & BTP </strong>
-
-              <span> Travaux de bâtiment et infrastructure </span>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
             </figcaption>
           </figure>
 
-          <figure class="project">
-            <img src="assets/images/chantier-2.jpg" alt="Travaux publics" />
-
-            <figcaption>
-              <strong> Travaux publics </strong>
-
-              <span> Aménagement et infrastructures </span>
-            </figcaption>
-          </figure>
-
-          <figure class="project">
-            <img src="assets/images/forage.jpg" alt="Forage et hydraulique" />
-
-            <figcaption>
-              <strong> Hydraulique </strong>
-
-              <span> Forage et réseaux d'eau </span>
-            </figcaption>
-          </figure>
-
-          <figure class="project">
+          <!-- Projet 2 -->
+          <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_2.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
             <img
-              src="assets/images/electricite.jpg"
-              alt="Installation électrique"
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_2.jpeg"
+              alt="Travaux publics"
+              class="project-image"
             />
 
             <figcaption>
-              <strong> Électricité </strong>
-
-              <span> Installations et réseaux </span>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
             </figcaption>
           </figure>
+
+          <!-- Projet 3 -->
+          <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_3.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_3.jpeg"
+              alt="Forage et hydraulique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure>
+
+          <!-- Projet 4 -->
+          <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_4.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_4.jpeg"
+              alt="Installation électrique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure>
+
+          <!-- Projet 5 -->
+          <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_5.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_5.jpeg"
+              alt="Forage et hydraulique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure>
+
+          <!-- Projet 6 -->
+          <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_6.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_6.jpeg"
+              alt="Forage et hydraulique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure>
+
+          <!-- Projet 7 -->
+          <!-- <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_7.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_7.jpeg"
+              alt="Forage et hydraulique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure> -->
+
+          <!-- Projet 8 -->
+          <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_8.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_8.jpeg"
+              alt="Forage et hydraulique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure>
+
+          <!-- Projet 9 -->
+          <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_9.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_9.jpeg"
+              alt="Forage et hydraulique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure>
+
+          <!-- Projet 10 -->
+          <!-- <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_10.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_10.jpeg"
+              alt="Forage et hydraulique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure>-->
+
+          <!-- Projet 11 -->
+          <!-- <figure
+            class="project"
+            data-image="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_11.jpeg"
+            data-title="Construction & BTP"
+            data-description="Travaux de VRD au CHU Kara en 2026"
+          >
+            <img
+              src="assets/images/Travaux_de_VRD_au_CHU_Kara_en_2026_11.jpeg"
+              alt="Forage et hydraulique"
+              class="project-image"
+            />
+
+            <figcaption>
+              <strong>Construction & BTP</strong>
+              <span>Travaux de VRD au CHU Kara en 2026</span>
+            </figcaption>
+          </figure> -->
         </div>
       </div>
     </section>
@@ -514,6 +908,17 @@
                 <strong> Kara, Togo </strong>
               </div>
             </div>
+
+            <div>
+              <span class="contact-icon"> 📧 </span>
+
+              <div>
+                <small>Adresse e-mail</small>
+                <strong>
+                  <a href="mailto:lumen.btp@gmail.com">lumen.btp@gmail.com</a>
+                </strong>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -599,6 +1004,8 @@
           <a href="tel:+22891568278"> 91 56 82 78 </a>
 
           <a href="tel:+22897707651"> 97 70 76 51 </a>
+
+          <a href="mailto:lumen.btp@gmail.com">lumen.btp@gmail.com</a>
         </div>
       </div>
 
@@ -624,8 +1031,90 @@
       💬
     </a>
 
-    <!-- JAVASCRIPT -->
+    <!-- MODAL IMAGE -->
+    <div class="image-lightbox" id="imageLightbox">
+      <div class="image-lightbox-overlay"></div>
 
+      <div class="image-lightbox-content">
+        <button
+          type="button"
+          class="image-lightbox-close"
+          id="closeLightbox"
+          aria-label="Fermer"
+        >
+          &times;
+        </button>
+
+        <div class="image-lightbox-image-container">
+          <img id="lightboxImage" src="" alt="" />
+        </div>
+
+        <div class="image-lightbox-info">
+          <strong id="lightboxTitle"></strong>
+          <span id="lightboxDescription"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const projects = document.querySelectorAll(".project");
+
+        const lightbox = document.getElementById("imageLightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const lightboxTitle = document.getElementById("lightboxTitle");
+        const lightboxDescription = document.getElementById(
+          "lightboxDescription",
+        );
+
+        const closeButton = document.getElementById("closeLightbox");
+        const overlay = document.querySelector(".image-lightbox-overlay");
+
+        /* Ouvrir */
+
+        projects.forEach(function (project) {
+          project.addEventListener("click", function () {
+            const image = this.querySelector(".project-image");
+
+            lightboxImage.src = this.dataset.image;
+            lightboxImage.alt = image.alt;
+
+            lightboxTitle.textContent = this.dataset.title || "";
+
+            lightboxDescription.textContent = this.dataset.description || "";
+
+            lightbox.classList.add("active");
+
+            document.body.classList.add("lightbox-open");
+          });
+        });
+
+        /* Fermer */
+
+        function closeLightbox() {
+          lightbox.classList.remove("active");
+
+          document.body.classList.remove("lightbox-open");
+
+          setTimeout(function () {
+            lightboxImage.src = "";
+          }, 300);
+        }
+
+        closeButton.addEventListener("click", closeLightbox);
+
+        overlay.addEventListener("click", closeLightbox);
+
+        /* Fermer avec ESC */
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && lightbox.classList.contains("active")) {
+            closeLightbox();
+          }
+        });
+      });
+    </script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>
